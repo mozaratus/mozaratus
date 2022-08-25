@@ -1,5 +1,4 @@
 <script>
-
     // !!! mettre à jour les CB au login
 
     import { createEventDispatcher } from "svelte";
@@ -16,14 +15,14 @@
     ];
 
     function exo_fx(num) {
-        dispatch("showExo", {exos: exos[num]});
+        dispatch("showExo", { exos: exos[num] });
     }
 
     function accueil_fx() {
         dispatch("showAccueil", {});
     }
     function info_fx() {
-        dispatch("showInfos", {});        
+        dispatch("showInfos", {});
     }
 </script>
 
@@ -36,10 +35,12 @@
                 {#each exos as exo, i}
                     <li on:click={() => exo_fx(i)}>
                         <span>
-                            <input disabled
-                            type="checkbox"
-                            id="exoCb_{i.nom}"
-                            bind:checked={exo.result} />&nbsp;
+                            <input
+                                disabled
+                                type="checkbox"
+                                id="exoCb_{i.nom}"
+                                bind:checked={exo.result}
+                            />&nbsp;
                             {exo.nom}
                         </span>
                     </li>
@@ -52,13 +53,13 @@
 
 <style>
     :root {
-        --color-survol:#080;
+        --color-survol: #080;
     }
     nav.topMenu {
         position: absolute;
         z-index: 100;
-        top: -20px;
-        left: 15%;
+        top: 18px;
+        left: -45px;
     }
     li {
         list-style-type: none;
@@ -69,8 +70,8 @@
     }
     nav.topMenu > ul > li:hover {
         color: var(--color-survol);
-    }    
-    nav.topMenu > ul > li:hover > ul > li{
+    }
+    nav.topMenu > ul > li:hover > ul > li {
         color: #000;
     }
     nav.topMenu > ul {
@@ -86,9 +87,9 @@
     }
     nav.topMenu > ul > li.over {
         background-color: rgba(255, 255, 255, 0.9);
-        padding:5px;
+        padding: 5px;
         width: 100px;
-    }    
+    }
     nav.topMenu > ul > li.over > ul > li > span {
         background-color: rgba(255, 255, 255, 0);
     }
@@ -98,9 +99,9 @@
     }
     nav.topMenu > ul > li.over ul li:hover {
         /* background-color: rgba(55, 55, 55, 0.4); */
-        color:var(--color-survol);
+        color: var(--color-survol);
     }
-    
+
     nav.topMenu > ul > li.over:hover ul {
         display: block;
     }

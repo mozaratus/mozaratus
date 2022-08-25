@@ -15,7 +15,7 @@
 
     async function doPost() {
         const res = await fetch(
-            "http://localhost/htdocs/2022/telepathons/src/php/recup.php",
+            "http://tlpt.freelancetoulouse.com/php/recup.php",
             {
                 method: "POST",
                 headers: {

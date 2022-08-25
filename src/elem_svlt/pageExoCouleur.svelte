@@ -9,7 +9,7 @@
     function toBd(color) {
         const _data = "action=sendColor&color=" + color;
 
-        fetch("http://localhost/htdocs/2022/telepathons/src/php/getData.php", {
+        fetch("http://tlpt.freelancetoulouse.com/php/getData.php", {
             method: "post",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",

@@ -108,6 +108,9 @@
     export function showExoo(exos) {
         cacheTout();
         switch (exos.nom) {
+            case "Accueil":
+                _pageAccueil.showHide(true);
+                break;
             case "Couleur":
                 _pageExoBaseCouleur.showHide(true);
                 break;
@@ -137,6 +140,7 @@
 
 <div class="container" bind:this={leContainer}>
     <PageAccueil on:suiteAccueil={pageMiniForm} bind:this={_pageAccueil} />
+    
     <PageMiniForm
         on:suiteMiniForm={beforeExo}
         on:nomUser={affNomUser}

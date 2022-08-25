@@ -105,8 +105,11 @@ Page : email déjà existant, proposer login.
     }
 
     function showExo_fx(event) {
-        alert("Exo 00 : " + event.detail.exos.nom);
         _partieInscription.showExoo(event.detail.exos);
+    }
+
+    function showPageAccueil() {
+        _partieInscription.showExoo({nom:"Accueil"});
     }
 </script>
 
@@ -116,7 +119,7 @@ Page : email déjà existant, proposer login.
 
 <header bind:this={_header}>
     <h1>Télépathons</h1>
-    <Menu on:showExo={showExo_fx} />
+    <Menu on:showAccueil={showPageAccueil} on:showExo={showExo_fx} />
     <IhmLogin
         bind:this={_ihmLogin}
         on:showFormLogin={loginShow}
@@ -141,8 +144,8 @@ Page : email déjà existant, proposer login.
         etatModal={modalShow_b}
     />
     <article class="accueil" bind:this={_articleAccueil}>
-        <h2>Yop</h2>
-        <p>Page d'accueil</p>
+        <h2>Très bien !</h2>
+        <p>Vosu avez fini les exercices et il vous faut maintenant patienter, vous aurez vos résultats par mail.</p>
     </article>
 </main>
 

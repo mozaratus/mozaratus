@@ -14,7 +14,7 @@
     function chopUser() {
         const _data = "action=getUser";
 
-        fetch("http://localhost/htdocs/2022/telepathons/src/php/getData.php", {
+        fetch("http://tlpt.freelancetoulouse.com/php/getData.php", {
             method: "post",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -37,7 +37,7 @@
         // alert("getResultats " + userId);
         const _data = "action=getResultats&idUser=" + userId;
 
-        fetch("http://localhost/htdocs/2022/telepathons/src/php/getData.php", {
+        fetch("http://tlpt.freelancetoulouse.com/php/getData.php", {
             method: "post",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -83,7 +83,7 @@
             "&rn=" +
             rn;
 
-        fetch("http://localhost/htdocs/2022/telepathons/src/php/getData.php", {
+        fetch("http://tlpt.freelancetoulouse.com/php/getData.php", {
             method: "post",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -162,10 +162,10 @@
 
     .admini {
         position: absolute;
-        top: 10%;
+        top: 15%;
         left: 5%;
         width: 90%;
-        height: 90%;
+        height: 75%;
         background-color: white;
     }
 </style>

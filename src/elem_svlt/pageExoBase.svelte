@@ -19,7 +19,7 @@
         const _data =
             "action=sendDataPropal&data=" + data + "&champs=" + champs;
 
-        fetch("http://localhost/htdocs/2022/telepathons/src/php/getData.php", {
+        fetch("http://tlpt.freelancetoulouse.com/php/getData.php", {
             method: "post",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -106,6 +106,7 @@
     .container {
         display: none;
         text-align: center;
+        margin-top: 30px;
         /* position: relative; */
         /* background-data: antiquewhite; */
     }

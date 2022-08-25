@@ -59,7 +59,8 @@
     function formHandler(event) {
         event.preventDefault();
 
-        fetch("http://localhost/htdocs/2022/telepathons/src/php/recup.php", {
+        // fetch("http://localhost/htdocs/2022/telepathons/src/php/recup.php", {
+        fetch("http://tlpt.freelancetoulouse.com/phpphp/recup.php", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

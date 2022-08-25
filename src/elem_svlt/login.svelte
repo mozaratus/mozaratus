@@ -8,7 +8,7 @@
 
         const _data = "action=login&pw=" + pw.value + "&email=" + email.value;
 
-        fetch("http://localhost/htdocs/2022/telepathons/src/php/getData.php", {
+        fetch("http://tlpt.freelancetoulouse.com/php/getData.php", {
             method: "post",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -79,9 +79,9 @@
         const _data = "action=newPw&email=" + email.value;
 
         // 
-        // http://localhost/htdocs/2022/telepathons/src/php/getDataFT.php
+        // http://tlpt.freelancetoulouse.com/php/getDataFT.php
         //fetch("http://tlpt.freelancetoulouse.com/php/getDataFT.php", {
-        fetch("http://localhost/htdocs/2022/telepathons/src/php/getData.php", {
+        fetch("http://tlpt.freelancetoulouse.com/php/getData.php", {
             method: "post",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -117,7 +117,7 @@
     function sendMail(link) {
         let _data = "action=sendMail&email=" + email.value+"&link="+link;
         // http://tlpt.freelancetoulouse.com/php/
-        fetch("http://localhost/htdocs/2022/telepathons/src/php/sendMail.php", {
+        fetch("http://tlpt.freelancetoulouse.com/php/sendMail.php", {
             method: "post",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",

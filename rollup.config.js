@@ -34,7 +34,8 @@ export default {
 		sourcemap: true,
 		format: 'iife',
 		name: 'app',
-		file: 'public/build/bundle.js'
+		file: 'public/build/bundle.js',
+		publicPath:'http://tlpt.freelancetoulouse.com/'
 	},
 	plugins: [
 		svelte({

@@ -1,4 +1,13 @@
 POST ? : 
-Post : action -> getUser
-Get USER
-SQL = SELECT `id`,`nom`, `email`, `pw` FROM `user`; 
+Post : action -> login
+Post : pw -> 123
+Post : email -> toto@toto.fr
+Session ID : 
+Login 
+SQL = SELECT `id`,`nom`, `email`, `pw` FROM `user` WHERE pw='202cb962ac59075b964b07152d234b70' AND email='toto@toto.fr'; 
+Pw  : 123
+202cb962ac59075b964b07152d234b70
+nb Lines : 1
+id : 1
+nom : Boby
+email : toto@toto.fr
