@@ -1,0 +1,16 @@
+https://svelte.dev/blog/the-easiest-way-to-get-started
+
+https://www.npmjs.com/package/svelte
+
+https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Client-side_JavaScript_frameworks/Svelte_getting_started
+
+
+https://framework7.io/svelte/navigation-router
+
+
+https://svelte.dev/repl/451fd183e0d3403cb7800101f7d799fb?version=3.49.0
+
+
+https://www.npmjs.com/package/svelte-navigator
+
+http://localhost:8080/

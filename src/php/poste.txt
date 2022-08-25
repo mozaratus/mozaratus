@@ -1,0 +1,4 @@
+POST ? : 
+Post : action -> getUser
+Get USER
+SQL = SELECT `id`,`nom`, `email`, `pw` FROM `user`; 
