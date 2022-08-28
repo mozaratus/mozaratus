@@ -43,6 +43,7 @@
                             />&nbsp;
                             {exo.nom}
                         </span>
+                        <!--  -->
                     </li>
                 {/each}
             </ul>

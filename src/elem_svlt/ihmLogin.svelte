@@ -1,9 +1,16 @@
 <script>
     import { createEventDispatcher } from "svelte";
     
+   // import _teteIco from '@img/tete.png';
+
+   // let src = _teteIco;
+    let alt = undefined;
+
     const dispatch = createEventDispatcher();
 
-    $: _nom="Invité";
+    $: _nom="Login :";
+
+    let _leBoss;
     let showAdmin = false;
     let showLogin = false;
 
@@ -18,16 +25,27 @@
         dispatch("showHideAdmin_event", { showAdmin: showAdmin});
     }
 
+    function handleError(event) {
+        console.error(event);
+     //   src = _teteIco;
+    }
+
     export function setNom(nom) {
         _nom = nom;
     }
+
+    export function showBoss() {
+        _leBoss.style.display = "block"
+    }
+
+    
 </script>
 
 <div class="ihm">
-    <img src="img/tete.png" width="30" height="30" alt="" class='admin' on:click={showHideAdmin} />
+    <img src="img/tete.png"  {alt} bind:this={_leBoss} width="30" height="30" class='admin' on:click={showHideAdmin} />
     <span class='nom'>{_nom}</span>
     <div class="pointe">
-        <img src="img/tete.png" alt="" on:click={showHideLogin} />
+        <img src="img/tete.png" on:error={handleError} alt="" on:click={showHideLogin} />
     </div>
 </div>
 
@@ -68,6 +86,7 @@
     img.admin {
         transform: rotate(180deg);
         margin-right: 10px;
+        display:none;
     }
 
     @keyframes trembole {

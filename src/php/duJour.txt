@@ -1,0 +1,4 @@
+POST ? : 
+Post : action -> duJourInit
+nb Lines du jour : 1
+couleur violet forme rectangle nombre 27

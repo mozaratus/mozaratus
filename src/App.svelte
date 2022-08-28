@@ -14,6 +14,9 @@
     /*
 TODO : 
 
+
+Les cercles ne sont pas cliquable si l'utilisateur à fait les exos.
+
 BDD
 Champs utilisateur actif
 
@@ -27,33 +30,27 @@ Page récup email validation et met MAJ de la BDD (actif)
 Page message "envoi email pour valider"
 Page : email déjà existant, proposer login.
 
+
+Table "dujour" : 
+Génération des infos du jour.
+Infiltrer ... les choix dans les pages..
+
+
+Créer une page affichant les résultat ET le choix du jour associé.
+
 */
     let modalShow_b = false;
+    let choixDuJour = {};
 
     onMount(() => {
         console.log("Start");
         titreCouleur();
+        initDataDuJour();
         // _showModal("", "<h2>AA</h2>bb");
     });
 
     let _header, _main, _ihmLogin, _admini, _partieInscription, _modal, _login;
     let _articleAccueil;
-
-    function disparition() {
-        _header.style.opacity = 0;
-        _main.style.opacity = 0;
-        window.addEventListener("mousemove", rallumeTout);
-    }
-    function rallumeTout() {
-        apparition();
-        _partieInscription.rallumeTout();
-        window.removeEventListener("mousemove", rallumeTout);
-    }
-
-    function apparition() {
-        _header.style.opacity = 1;
-        _main.style.opacity = 1;
-    }
 
     function nomUserShow(event) {
         // console.log("Nom User : " + event.detail.nom);
@@ -78,11 +75,41 @@ Page : email déjà existant, proposer login.
         _header.querySelector("h1").innerHTML = out;
     }
 
-    function accueilInscrit() {
-        // alert("Allumage");
-        rallumeTout();
-        _partieInscription.cacheContainer();
-        _articleAccueil.style.display = "block";
+    function initDataDuJour() {
+        const _data = "action=duJourInit";
+
+        fetch("http://tlpt.freelancetoulouse.com/php/duJour.php", {
+            method: "post",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+
+            body: _data,
+        })
+            .then((response) => response.json())
+            .then((result) => {
+                console.log(
+                    "Qui : " +
+                        result[0].qui +
+                        ": (error : " +
+                        result[0].error +
+                        ")"
+                );
+
+                choixDuJour.couleur = result[0].couleur;
+                choixDuJour.forme = result[0].forme;
+                choixDuJour.nombre = result[0].nombre;
+            });
+    }
+
+    function accueilInscrit(event) {
+        console.log(event);
+        _partieInscription.pageChoixExo();
+
+        if (event.detail.boss) {
+            _ihmLogin.showBoss();
+        }
+
     }
 
     function _closeModal() {
@@ -109,7 +136,7 @@ Page : email déjà existant, proposer login.
     }
 
     function showPageAccueil() {
-        _partieInscription.showExoo({nom:"Accueil"});
+        _partieInscription.showExoo({ nom: "Accueil" });
     }
 </script>
 
@@ -119,7 +146,7 @@ Page : email déjà existant, proposer login.
 
 <header bind:this={_header}>
     <h1>Télépathons</h1>
-    <Menu on:showAccueil={showPageAccueil} on:showExo={showExo_fx} />
+    <!-- <Menu on:showAccueil={showPageAccueil} on:showExo={showExo_fx} /> -->
     <IhmLogin
         bind:this={_ihmLogin}
         on:showFormLogin={loginShow}
@@ -137,15 +164,17 @@ Page : email déjà existant, proposer login.
     <PartieInscription
         bind:this={_partieInscription}
         on:modal={_showModal}
-        on:disparaitre={disparition}
-        on:apparait={apparition}
         on:affNomUserEvt={nomUserShow}
         on:finInscription={accueilInscrit}
-        etatModal={modalShow_b}
+        {choixDuJour}
     />
+    <!-- etatModal={modalShow_b} -->
     <article class="accueil" bind:this={_articleAccueil}>
         <h2>Très bien !</h2>
-        <p>Vosu avez fini les exercices et il vous faut maintenant patienter, vous aurez vos résultats par mail.</p>
+        <p>
+            Vosu avez fini les exercices et il vous faut maintenant patienter,
+            vous aurez vos résultats par mail.
+        </p>
     </article>
 </main>
 

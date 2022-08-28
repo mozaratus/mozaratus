@@ -6,6 +6,7 @@
     let timerJour, timerMsg;
 
     export let champs = "";
+    export let chx;
 
     const dureeMessage = 1000;
 
@@ -79,13 +80,13 @@
 </script>
 
 <div class="container" bind:this={leContainer} on:mousemove={jour}>
-
+<span class='totroove chop_{chx}'>{chx}</span>
     <!-- Entête -->
     <div class="propal" bind:this={propal_div} on:mousemove={jour}>
         <h4>Exercice <span class="champsTitre">{champs}</span></h4>
         <p class="propal">
             Prenez le temps que vous voulez pour percevoir l'information <br />
-            <span class="champs">{champs}</span><br /> que vous envoie cette page.
+            <span class='totroove chop_{chx}'>{chx}</span><span class="champs">{champs}</span><span class='totroove chop_{chx}'>{chx}</span><br /> que vous envoie cette page.
         </p>
     </div>
 
@@ -137,5 +138,8 @@
     }
     .champsTitre::first-letter {
         font-size: 1.83em;
+    }
+    .totroove {
+        opacity: 0;
     }
 </style>

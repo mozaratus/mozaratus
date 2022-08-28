@@ -121,7 +121,7 @@
         </p>
         <p>
             <label for="email">Email</label>
-            <input type="email" value="toto@toto.fr" bind:this={email} />
+            <input type="email" value="tata@tata.fr" bind:this={email} />
         </p>
         <p>
             <label for="">Mot de passe</label>

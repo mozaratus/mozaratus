@@ -102,24 +102,24 @@
 <div class="container" bind:this={leContainer}>
     <div class="admini">
         <table>
-            <tr><th>ID</th><th>Nom</th><th>Email</th></tr>
+            <tr><th>Nom</th><th>Email</th></tr>
             {#each users as user}
-                <tr on:click={getResultats(user.id)}>
-                    <td>{user.id}</td><td>{user.nom}</td><td>{user.email}</td>
+                <tr class='data' on:click={getResultats(user.id)}>
+                    <td>{user.nom}</td><td>{user.email}</td>
                 </tr>
             {/each}
         </table>
         <hr />
         <table>
             <tr
-                ><th>ID</th><th>Date</th><th>Couleur</th><th>R-C</th><th
+                ><th>Date</th><th>Couleur</th><th>?C</th><th
                     >Forme</th
-                ><th>R-F</th><th>Nombre</th><th>R-N</th></tr
+                ><th>?F</th><th>Nombre</th><th>?N</th><th>Cia</th><th>Fia</th><th>Nia</th></tr
             >
             {#each resultats as res, i}
-                <!--  id`, `date`, `userId`, `couleur`, `rcouleur`, `forme`, `rforme`, `nombre`, `rnombre -->
-                <tr>
-                    <td>{res.id}</td>
+                <!--  id`, `date`, `userId`, `couleur`, `rcouleur`, `forme`, `rforme`, `nombre`, `rnombre, cia, fia, nia -->
+                <tr class='data'>
+                    <!-- <td>{res.id}</td> -->
                     <td>{res.date}</td>
                     <td>{res.couleur}</td>
                     <td
@@ -148,6 +148,9 @@
                             on:change={changeCB(i, res.id)}
                         /></td
                     >
+                    <td>{res.cia}</td>
+                    <td>{res.fia}</td>
+                    <td>{res.nia}</td>
                 </tr>
             {/each}
         </table>
@@ -168,4 +171,18 @@
         height: 75%;
         background-color: white;
     }
+
+    table {
+        border-collapse: collapse;
+    }
+    td { 
+        padding: 2px 5px;
+    }
+    tr.data:nth-child(odd) {
+        background-color: #e5e;
+    }
+    tr.data:nth-child(even) {
+        background-color: #5e5;
+    }
+
 </style>

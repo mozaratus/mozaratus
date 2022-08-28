@@ -1,16 +1,14 @@
 <?php
 
-// ALTER TABLE lesip AUTO_INCREMENT = 1
-
 session_start();
 
-header('Access-Control-Allow-Origin: *');
+// ALTER TABLE lesip AUTO_INCREMENT = 1
 
+//header('Access-Control-Allow-Origin: *');
 
 $dsn = 'mysql:dbname=freelancetoulous;host=freelancetoulous.sql-pro.online.net';
 $user = 'freelancetoulous';
 $password = '_Arctique67';
-
 
 // $dsn = 'mysql:dbname=telepathons;host=localhost';
 // $user = 'root';
@@ -27,6 +25,8 @@ foreach ($_POST as $key => $value) {
 
 if (isset($_SESSION['idUser'])) {
     fwrite($ff, "Session ID : " . $_SESSION['idUser'] . "\n");
+} else {
+    fwrite($ff, "Session ID : PAS DE SESSION \n");
 }
 
 $tab = array(
@@ -56,17 +56,20 @@ if (isset($_POST['action']) && $_POST["action"] === 'miniForm') {
         $rowset = $dblChk->fetchAll(PDO::FETCH_NUM);
         if ($rowset) {
             foreach ($rowset as $row) {
-                $nom = $row[1];
                 $_SESSION['idUser'] = $row[0];
+                $nom = $row[1];
             }
         }
+
+        fwrite($ff, 'sess id : ' . $_SESSION['idUser'] . "\n");
 
         $tab = array(
             array("qui" => $_POST["action"],
                 "error" => 1,
+                "nom" => $nom,
                 "msg" => "Doublon de " . $_POST["email"]),
         );
-        $_SESSION['idUser'] = "";
+        // !!! $_SESSION['idUser'] = "";
     } else {
         //--------------------------------
         // INSERT USER
@@ -75,7 +78,7 @@ if (isset($_POST['action']) && $_POST["action"] === 'miniForm') {
         $pdo->beginTransaction();
 
         $sql = 'INSERT INTO user
-            (`nom`, `email`, `pw`, date)
+            (`nom`, `email`, `pw`, `date`)
             VALUES (?, ?, ?, ?)';
 
         $sth = $pdo->prepare($sql);
@@ -129,10 +132,6 @@ if (isset($_POST['action']) && $_POST["action"] === 'miniForm') {
         $pdo->commit();
 
     }
-
-    // --------------------------------------------------------------------------
-    //          LOGIN
-    // --------------------------------------------------------------------------
 }
 // --------------------------------------------------------------------------
 //          Login
@@ -169,6 +168,7 @@ elseif (isset($_POST['action']) && $_POST["action"] === 'login') {
                     $tab0['id'] = $row[0];
                     $tab0['nom'] = $row[1];
                     $tab0['email'] = $row[2];
+                    $_SESSION['idUser'] = $tab0['id'];
                 }
             }
         } while ($stmt->nextRowset());
@@ -177,6 +177,7 @@ elseif (isset($_POST['action']) && $_POST["action"] === 'login') {
             array("qui" => $_POST["action"],
                 "error" => "0",
                 "msg" => "Login Ok",
+                "id" => $tab0['id'],
                 "nom" => $tab0['nom'],
             ),
         );
@@ -189,13 +190,9 @@ elseif (isset($_POST['action']) && $_POST["action"] === 'login') {
         );
 
     }
-
-    // --------------------------------------------------------------------------
-    //          Exo Couleur
-    // --------------------------------------------------------------------------
 }
 // --------------------------------------------------------------------------
-//          SET COLOR // sendColor
+//      SET RESULTAT
 // --------------------------------------------------------------------------
 //      Générique pour les page exos
 // --------------------------------------------------------------------------
@@ -208,7 +205,7 @@ elseif (isset($_POST['action']) && $_POST["action"] === 'sendDataPropal') {
 
     // SELECT `id`, `date`, `userId`, `couleur`, `rcouleur`, `forme`, `rforme`, `nombre`, `rnombre` FROM `resultat`
 
-    $sql = "SELECT `id` FROM `resultat` WHERE `date`='" . $date . "' AND userId='" . $_SESSION["idUser"] . "';";
+    $sql = "SELECT `id` FROM `resultat` WHERE `date`='" . $date . "' AND userId='" . $_SESSION['idUser'] . "';";
 
     fwrite($ff, "SQL sendDataPropal = " . $sql . " \n");
 
@@ -336,7 +333,8 @@ elseif (isset($_POST['action']) && $_POST["action"] === 'getUser') {
 // --------------------------------------------------------------------------
 elseif (isset($_POST['action']) && $_POST["action"] === 'getResultats') {
 
-    $sql = "SELECT `id`, `date`, `userId`, `couleur`, `rcouleur`, `forme`, `rforme`, `nombre`, `rnombre`  FROM `resultat` WHERE userId=" . $_POST['idUser'] . ";";
+    $sql = "SELECT r.id, r.date, `userId`, r.couleur as cuser, `rcouleur`, r.forme as fuser, `rforme`, r.nombre as nuser, `rnombre`,  d.couleur as cia, d.forme as dia, d.nombre as dia 
+    FROM resultat as r,dujour as d WHERE userId = " . $_POST['idUser'] . " AND d.date = r.date;";
 
     fwrite($ff, "Get RESULTATS\nSQL = " . $sql . " \n");
 
@@ -360,6 +358,10 @@ elseif (isset($_POST['action']) && $_POST["action"] === 'getResultats') {
                     $tab0['rforme'] = !!$row[6];
                     $tab0['nombre'] = $row[7];
                     $tab0['rnombre'] = !!$row[8];
+                    $tab0['cia'] = $row[9];
+                    $tab0['fia'] = $row[10];
+                    $tab0['nia'] = $row[11];
+                    $tab0['qui'] = $_POST["action"];
 
                     $tab[] = $tab0;
                 }
@@ -371,6 +373,55 @@ elseif (isset($_POST['action']) && $_POST["action"] === 'getResultats') {
             array("qui" => $_POST["action"],
                 "error" => "0",
                 "msg" => "Problème récup Résultats"),
+        );
+    }
+}
+
+// --------------------------------------------------------------------------
+//        quels sont les Exo faits !
+// --------------------------------------------------------------------------
+elseif (isset($_POST['action']) && $_POST["action"] === 'exoFaits') {
+
+    $date = date('Y-m-d');
+
+    $sql = "SELECT `id`,  `couleur`, `rcouleur`, `forme`, `rforme`, `nombre`, `rnombre` FROM `resultat` WHERE `date` = '$date' AND userId=" . $_SESSION['idUser'] . ";";
+
+    fwrite($ff, "Get RESULTATS\nSQL = " . $sql . " \n");
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+
+    $tab = [];
+    if ($stmt->rowCount()) {
+        $tab = array(
+            array("qui" => $_POST["action"],
+                "error" => "0",
+                "msg" => "récup faits (".$stmt->rowCount().") ligne !"),
+        );
+        do {
+            $rowset = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if ($rowset) {
+                foreach ($rowset as $row) {
+
+                    $tab0['id'] = $row['id'];
+                    $tab0['date'] = $row['date'];
+                    $tab0['couleur'] = $row['couleur'];
+                    $tab0['rcouleur'] = !!$row['rcouleur'];
+                    $tab0['forme'] = $row['forme'];
+                    $tab0['rforme'] = !!$row['rforme'];
+                    $tab0['nombre'] = $row['nombre'];
+                    $tab0['rnombre'] = !!$row['rnombre'];
+
+                    $tab[] = $tab0;
+                }
+            }
+        } while ($stmt->nextRowset());
+
+    } else {
+        $tab = array(
+            array("qui" => $_POST["action"],
+                "error" => "2",
+                "msg" => "! Pas d'exos faits"),
         );
     }
 }
@@ -436,20 +487,20 @@ elseif (isset($_POST['action']) && $_POST["action"] === 'newPw') {
         fwrite($ff, "UPDATE Demande PW\nSQL = " . $sql . " \n");
 
         $stmt = $pdo->prepare($sql);
-        
+
         $link = "<a href='tlpt.freelancetoutlouse/php/reset-password.php?key=" . $emailId . "&token=" . $token . "'>Click To Reset password</a>";
-        
+
         //Et envoi du mail...
         // $a = mail($destinataire, $objet, $message, $headers);
         // $a = mail("mozaratus@gmail.com", "coucou", $message, $headers);
 
-   //     if ($a) {
-            $tab = array(
-                array("qui" => $_POST["action"],
-                    "error" => "0",
-                    "link" => $link,
-                    "msg" => "Regardez dans votre boîte mail (vérifiez dans les spams), pour finaliser l'inscription."),
-            );
+        //     if ($a) {
+        $tab = array(
+            array("qui" => $_POST["action"],
+                "error" => "0",
+                "link" => $link,
+                "msg" => "Regardez dans votre boîte mail (vérifiez dans les spams), pour finaliser l'inscription."),
+        );
 
         // } else {
         //     $tab = array(

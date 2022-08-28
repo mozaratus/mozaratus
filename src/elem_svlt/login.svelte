@@ -5,6 +5,7 @@
 
     function formHandler(event) {
         event.preventDefault();
+        let boss= false;
 
         const _data = "action=login&pw=" + pw.value + "&email=" + email.value;
 
@@ -34,14 +35,15 @@
                     console.error("PBM : " + result[0].msg);
                     //_forgotPw.style.display = "block";
                 } else {
-                    // console.log("logué : " + result[0].nom);
+                    console.log("logué : ", result);
                     dispatch("nomUser", { nom: result[0].nom });
 
-                    // dispatch("modal", {
-                    //     msg: "Ok : " + result[0].msg,
-                    //     todo: "ok",
-                    // });
-                    dispatch("goToAccueil", {});
+                    if(result[0].id == 18) {
+                        boss= true;
+                    }
+
+
+                    dispatch("goToAccueil", {boss:boss});
                     showHide(false);
                 }
             });

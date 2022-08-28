@@ -1,13 +1,195 @@
 POST ? : 
+Post : action -> getUser
+Session ID : 18
+Get USER
+SQL = SELECT `id`,`nom`, `email`, `pw` FROM `user`; 
+POST ? : 
 Post : action -> login
 Post : pw -> 123
 Post : email -> toto@toto.fr
-Session ID : 
+Session ID : 18
 Login 
 SQL = SELECT `id`,`nom`, `email`, `pw` FROM `user` WHERE pw='202cb962ac59075b964b07152d234b70' AND email='toto@toto.fr'; 
 Pw  : 123
 202cb962ac59075b964b07152d234b70
 nb Lines : 1
-id : 1
+id : 18
 nom : Boby
 email : toto@toto.fr
+POST ? : 
+Post : action -> getUser
+Session ID : 18
+Get USER
+SQL = SELECT `id`,`nom`, `email`, `pw` FROM `user`; 
+POST ? : 
+Post : action -> login
+Post : pw -> 123
+Post : email -> toto@toto.fr
+Session ID : 18
+Login 
+SQL = SELECT `id`,`nom`, `email`, `pw` FROM `user` WHERE pw='202cb962ac59075b964b07152d234b70' AND email='toto@toto.fr'; 
+Pw  : 123
+202cb962ac59075b964b07152d234b70
+nb Lines : 1
+id : 18
+nom : Boby
+email : toto@toto.fr
+POST ? : 
+Post : action -> exoFaits
+Session ID : 18
+Get RESULTATS
+SQL = SELECT `id`, 'date', `couleur`, `rcouleur`, `forme`, `rforme`, `nombre`, `rnombre` FROM `resultat` WHERE userId=18; 
+POST ? : 
+Post : action -> getUser
+Session ID : 18
+Get USER
+SQL = SELECT `id`,`nom`, `email`, `pw` FROM `user`; 
+POST ? : 
+Post : action -> login
+Post : pw -> 123
+Post : email -> toto@toto.fr
+Session ID : 18
+Login 
+SQL = SELECT `id`,`nom`, `email`, `pw` FROM `user` WHERE pw='202cb962ac59075b964b07152d234b70' AND email='toto@toto.fr'; 
+Pw  : 123
+202cb962ac59075b964b07152d234b70
+nb Lines : 1
+id : 18
+nom : Boby
+email : toto@toto.fr
+POST ? : 
+Post : action -> exoFaits
+Session ID : 18
+Get RESULTATS
+SQL = SELECT `id`, 'date', `couleur`, `rcouleur`, `forme`, `rforme`, `nombre`, `rnombre` FROM `resultat` WHERE userId=18; 
+POST ? : 
+Post : action -> getUser
+Session ID : 18
+Get USER
+SQL = SELECT `id`,`nom`, `email`, `pw` FROM `user`; 
+POST ? : 
+Post : action -> login
+Post : pw -> 123
+Post : email -> toto@toto.fr
+Session ID : 18
+Login 
+SQL = SELECT `id`,`nom`, `email`, `pw` FROM `user` WHERE pw='202cb962ac59075b964b07152d234b70' AND email='toto@toto.fr'; 
+Pw  : 123
+202cb962ac59075b964b07152d234b70
+nb Lines : 1
+id : 18
+nom : Boby
+email : toto@toto.fr
+POST ? : 
+Post : action -> exoFaits
+Session ID : 18
+Get RESULTATS
+SQL = SELECT `id`, `date`, `couleur`, `rcouleur`, `forme`, `rforme`, `nombre`, `rnombre` FROM `resultat` WHERE userId=18; 
+POST ? : 
+Post : action -> getUser
+Session ID : 18
+Get USER
+SQL = SELECT `id`,`nom`, `email`, `pw` FROM `user`; 
+POST ? : 
+Post : action -> login
+Post : pw -> 123
+Post : email -> toto@toto.fr
+Session ID : 18
+Login 
+SQL = SELECT `id`,`nom`, `email`, `pw` FROM `user` WHERE pw='202cb962ac59075b964b07152d234b70' AND email='toto@toto.fr'; 
+Pw  : 123
+202cb962ac59075b964b07152d234b70
+nb Lines : 1
+id : 18
+nom : Boby
+email : toto@toto.fr
+POST ? : 
+Post : action -> exoFaits
+Session ID : 18
+Get RESULTATS
+SQL = SELECT `id`, `date`, `couleur`, `rcouleur`, `forme`, `rforme`, `nombre`, `rnombre` FROM `resultat` WHERE userId=18; 
+POST ? : 
+Post : action -> exoFaits
+Session ID : 18
+Get RESULTATS
+SQL = SELECT `id`, `date`, `couleur`, `rcouleur`, `forme`, `rforme`, `nombre`, `rnombre` FROM `resultat` WHERE userId=18; 
+POST ? : 
+Post : action -> getUser
+Session ID : 18
+Get USER
+SQL = SELECT `id`,`nom`, `email`, `pw` FROM `user`; 
+POST ? : 
+Post : action -> login
+Post : pw -> 123
+Post : email -> toto@toto.fr
+Session ID : 18
+Login 
+SQL = SELECT `id`,`nom`, `email`, `pw` FROM `user` WHERE pw='202cb962ac59075b964b07152d234b70' AND email='toto@toto.fr'; 
+Pw  : 123
+202cb962ac59075b964b07152d234b70
+nb Lines : 1
+id : 18
+nom : Boby
+email : toto@toto.fr
+POST ? : 
+Post : action -> exoFaits
+Session ID : 18
+Get RESULTATS
+SQL = SELECT `id`, `date`, `couleur`, `rcouleur`, `forme`, `rforme`, `nombre`, `rnombre` FROM `resultat` WHERE userId=18; 
+POST ? : 
+Post : action -> exoFaits
+Session ID : 18
+Get RESULTATS
+SQL = SELECT `id`, `date`, `couleur`, `rcouleur`, `forme`, `rforme`, `nombre`, `rnombre` FROM `resultat` WHERE userId=18; 
+POST ? : 
+Post : action -> sendDataPropal
+Post : data -> 87
+Post : champs -> forme
+Session ID : 18
+SQL sendDataPropal = SELECT `id` FROM `resultat` WHERE `date`='2022-08-28' AND userId='18'; 
+POST ? : 
+Post : action -> exoFaits
+Session ID : 18
+Get RESULTATS
+SQL = SELECT `id`, `date`, `couleur`, `rcouleur`, `forme`, `rforme`, `nombre`, `rnombre` FROM `resultat` WHERE userId=18; 
+POST ? : 
+Post : action -> exoFaits
+Session ID : 18
+Get RESULTATS
+SQL = SELECT `id`, `date`, `couleur`, `rcouleur`, `forme`, `rforme`, `nombre`, `rnombre` FROM `resultat` WHERE userId=18; 
+POST ? : 
+Post : action -> sendDataPropal
+Post : data -> 87
+Post : champs -> forme
+Session ID : 18
+SQL sendDataPropal = SELECT `id` FROM `resultat` WHERE `date`='2022-08-28' AND userId='18'; 
+UPDATE RESULTATS
+SQL = UPDATE `resultat` SET `forme`="87" WHERE id=9; 
+POST ? : 
+Post : action -> exoFaits
+Session ID : 18
+Get RESULTATS
+SQL = SELECT `id`, `date`, `couleur`, `rcouleur`, `forme`, `rforme`, `nombre`, `rnombre` FROM `resultat` WHERE userId=18; 
+POST ? : 
+Post : action -> getUser
+Session ID : 18
+Get USER
+SQL = SELECT `id`,`nom`, `email`, `pw` FROM `user`; 
+POST ? : 
+Post : action -> login
+Post : pw -> 123
+Post : email -> toto@toto.fr
+Session ID : 18
+Login 
+SQL = SELECT `id`,`nom`, `email`, `pw` FROM `user` WHERE pw='202cb962ac59075b964b07152d234b70' AND email='toto@toto.fr'; 
+Pw  : 123
+202cb962ac59075b964b07152d234b70
+nb Lines : 1
+id : 18
+nom : Boby
+email : toto@toto.fr
+POST ? : 
+Post : action -> exoFaits
+Session ID : 18
+Get RESULTATS
+SQL = SELECT `id`,  `couleur`, `rcouleur`, `forme`, `rforme`, `nombre`, `rnombre` FROM `resultat` WHERE `date` = '2022-08-28 12:33:32' AND userId=18; 
