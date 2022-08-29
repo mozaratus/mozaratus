@@ -14,8 +14,9 @@
     /*
 TODO : 
 
+LiveReload enabled on port 35730
 
-Les cercles ne sont pas cliquable si l'utilisateur à fait les exos.
+!!! Attente après clique !!!
 
 BDD
 Champs utilisateur actif
@@ -36,7 +37,7 @@ Génération des infos du jour.
 Infiltrer ... les choix dans les pages..
 
 
-Créer une page affichant les résultat ET le choix du jour associé.
+Créer une page affichant les résultats ET le choix d'exo jour associé.
 
 */
     let modalShow_b = false;
@@ -47,9 +48,13 @@ Créer une page affichant les résultat ET le choix du jour associé.
         titreCouleur();
         initDataDuJour();
         // _showModal("", "<h2>AA</h2>bb");
+        if(localStorage.getItem('mail')) {
+             _login.showHide(true);
+        }
+
     });
 
-    let _header, _main, _ihmLogin, _admini, _partieInscription, _modal, _login;
+    let _header, _main, _ihmLogin, _admini, _partieInscription, _modal, _login, _attente;
     let _articleAccueil;
 
     function nomUserShow(event) {
@@ -102,6 +107,18 @@ Créer une page affichant les résultat ET le choix du jour associé.
             });
     }
 
+    function     showHideAttente_fx(event) {
+        attenteSH(event.detail.bool);
+    }
+
+    function attenteSH(bool=true) {
+        if(bool) {
+            _attente.style.display = 'block';
+        } else {
+            _attente.style.display = 'none';
+        }
+    }
+
     function accueilInscrit(event) {
         console.log(event);
         _partieInscription.pageChoixExo();
@@ -109,7 +126,6 @@ Créer une page affichant les résultat ET le choix du jour associé.
         if (event.detail.boss) {
             _ihmLogin.showBoss();
         }
-
     }
 
     function _closeModal() {
@@ -140,7 +156,14 @@ Créer une page affichant les résultat ET le choix du jour associé.
     }
 </script>
 
-<Admini bind:this={_admini} />
+<div class="attenteCss" bind:this={_attente}>
+    <div />
+    <div />
+    <div />
+    <div />
+</div>
+
+<Admini bind:this={_admini} on:showAttente={showHideAttente_fx} />
 
 <Modal bind:this={_modal} on:close={_closeModal} msgModal={"/"} />
 
@@ -156,12 +179,14 @@ Créer une page affichant les résultat ET le choix du jour associé.
 
 <main bind:this={_main}>
     <Login
+    on:showAttente={showHideAttente_fx}
         on:goToAccueil={accueilInscrit}
         on:modal={_showModal}
         on:nomUser={nomUserShow}
         bind:this={_login}
     />
     <PartieInscription
+    on:showAttente={showHideAttente_fx}
         bind:this={_partieInscription}
         on:modal={_showModal}
         on:affNomUserEvt={nomUserShow}
@@ -169,17 +194,17 @@ Créer une page affichant les résultat ET le choix du jour associé.
         {choixDuJour}
     />
     <!-- etatModal={modalShow_b} -->
-    <article class="accueil" bind:this={_articleAccueil}>
+    <!-- <article class="accueil" bind:this={_articleAccueil}>
         <h2>Très bien !</h2>
         <p>
             Vosu avez fini les exercices et il vous faut maintenant patienter,
             vous aurez vos résultats par mail.
         </p>
-    </article>
+    </article> -->
 </main>
 
 <style>
-    .accueil {
+    /* .accueil {
         display: none;
-    }
+    } */
 </style>

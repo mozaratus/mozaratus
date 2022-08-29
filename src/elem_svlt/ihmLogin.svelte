@@ -26,7 +26,7 @@
     }
 
     function handleError(event) {
-        console.error(event);
+        //console.error(event);
      //   src = _teteIco;
     }
 
@@ -42,10 +42,10 @@
 </script>
 
 <div class="ihm">
-    <img src="img/tete.png"  {alt} bind:this={_leBoss} width="30" height="30" class='admin' on:click={showHideAdmin} />
+    <img src="img/tete.png" {alt} bind:this={_leBoss} width="30" height="30" class='admin' on:click={showHideAdmin} />
     <span class='nom'>{_nom}</span>
     <div class="pointe">
-        <img src="img/tete.png" on:error={handleError} alt="" on:click={showHideLogin} />
+        <img src="https://www.freelancetoulouse.com/images/lunettes3D.png" width="30" height="30" on:error={handleError} alt="" on:click={showHideLogin} />
     </div>
 </div>
 

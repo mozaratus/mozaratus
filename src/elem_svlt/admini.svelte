@@ -2,16 +2,20 @@
     import { createEventDispatcher } from "svelte";
     import { onMount } from "svelte";
 
-    let leContainer, propalCouleur;
+    const dispatch = createEventDispatcher();
+
+    let leContainer;
 
     $: users = [];
     $: resultats = [];
+    $: actifUser = {nom:"-"};
 
     onMount(() => {
         chopUser();
     });
 
     function chopUser() {
+        dispatch("showAttente", { bool: true });
         const _data = "action=getUser";
 
         fetch("http://tlpt.freelancetoulouse.com/php/getData.php", {
@@ -27,14 +31,13 @@
                 console.log("Qui : " + result[0].qui);
                 console.log("Result user : ", result);
                 users = result;
+                dispatch("showAttente", { bool: false });
             });
     }
 
-    //    const dispatch = createEventDispatcher();
-    //         dispatch("suiteExoCouleur", { couleur: propalCouleur.value });
-
-    function getResultats(userId) {
+    function getResultats(userId,nom) {
         // alert("getResultats " + userId);
+        dispatch("showAttente", { bool: true });
         const _data = "action=getResultats&idUser=" + userId;
 
         fetch("http://tlpt.freelancetoulouse.com/php/getData.php", {
@@ -51,6 +54,8 @@
                 console.log("Resultata : ", result);
 
                 resultats = result;
+                actifUser.nom = nom;
+                dispatch("showAttente", { bool: false });
             });
     }
 
@@ -73,6 +78,9 @@
     }
 
     function updateBDDResultat(idResultat, rc, rf, rn) {
+
+        dispatch("showAttente", { bool: true });
+
         const _data =
             "action=updateBDDResultat&idResultat=" +
             idResultat +
@@ -95,6 +103,7 @@
             .then((result) => {
                 console.log("Qui : " + result[0].qui);
                 console.log("Resultata updateBDDResultat : ", result);
+                dispatch("showAttente", { bool: false });
             });
     }
 </script>
@@ -104,12 +113,13 @@
         <table>
             <tr><th>Nom</th><th>Email</th></tr>
             {#each users as user}
-                <tr class='data' on:click={getResultats(user.id)}>
+                <tr class='data' on:click={getResultats(user.id, user.nom)}>
                     <td>{user.nom}</td><td>{user.email}</td>
                 </tr>
             {/each}
         </table>
         <hr />
+            <p>{actifUser.nom}</p>
         <table>
             <tr
                 ><th>Date</th><th>Couleur</th><th>?C</th><th

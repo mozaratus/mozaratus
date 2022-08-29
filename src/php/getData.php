@@ -279,6 +279,58 @@ elseif (isset($_POST['action']) && $_POST["action"] === 'sendDataPropal') {
     $pdo->commit();
 
 }
+
+// --------------------------------------------------------------------------
+//          Get Le User Result (Infos pour l'utilisateur)
+// --------------------------------------------------------------------------
+
+elseif (isset($_POST['action']) && $_POST["action"] === 'getLeUserResult') {
+    if (isset($_SESSION['idUser'])) {
+        $sql = "SELECT r.id, r.date, `userId`, r.couleur as cuser, `rcouleur`, r.forme as fuser, `rforme`, r.nombre as nuser, `rnombre`,  d.couleur as cia, d.forme as dia, d.nombre as dia
+        FROM resultat as r,dujour as d WHERE userId = " . $_SESSION['idUser'] . " AND d.date = r.date;";
+    
+        fwrite($ff, "Get RESULTATS\nSQL = " . $sql . " \n");
+    
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+    
+        $tab = [];
+        if ($stmt->rowCount()) {
+    
+            do {
+                $rowset = $stmt->fetchAll(PDO::FETCH_NUM);
+                if ($rowset) {
+                    foreach ($rowset as $row) {
+    
+                        $tab0['id'] = $row[0];
+                        $tab0['date'] = $row[1];
+                        $tab0['userId'] = $row[2];
+                        $tab0['couleur'] = $row[3];
+                        $tab0['rcouleur'] = $row[4];
+                        $tab0['forme'] = $row[5];
+                        $tab0['rforme'] = $row[6];
+                        $tab0['nombre'] = $row[7];
+                        $tab0['rnombre'] = $row[8];
+                        $tab0['cia'] = $row[9];
+                        $tab0['fia'] = $row[10];
+                        $tab0['nia'] = $row[11];
+                        $tab0['qui'] = $_POST["action"];
+    
+                        $tab[] = $tab0;
+                    }
+                }
+            } while ($stmt->nextRowset());
+    
+        } else {
+            $tab = array(
+                array("qui" => $_POST["action"],
+                    "error" => "0",
+                    "msg" => "Problème récup Résultats"),
+            );
+        }
+    }
+}
+
 // --------------------------------------------------------------------------
 //          Get USER
 // --------------------------------------------------------------------------
@@ -329,11 +381,11 @@ elseif (isset($_POST['action']) && $_POST["action"] === 'getUser') {
 }
 
 // --------------------------------------------------------------------------
-//          Get RESULTATS
+//          Get RESULTATS (ADMIN)
 // --------------------------------------------------------------------------
 elseif (isset($_POST['action']) && $_POST["action"] === 'getResultats') {
 
-    $sql = "SELECT r.id, r.date, `userId`, r.couleur as cuser, `rcouleur`, r.forme as fuser, `rforme`, r.nombre as nuser, `rnombre`,  d.couleur as cia, d.forme as dia, d.nombre as dia 
+    $sql = "SELECT r.id, r.date, `userId`, r.couleur as cuser, `rcouleur`, r.forme as fuser, `rforme`, r.nombre as nuser, `rnombre`,  d.couleur as cia, d.forme as dia, d.nombre as dia
     FROM resultat as r,dujour as d WHERE userId = " . $_POST['idUser'] . " AND d.date = r.date;";
 
     fwrite($ff, "Get RESULTATS\nSQL = " . $sql . " \n");
@@ -353,11 +405,11 @@ elseif (isset($_POST['action']) && $_POST["action"] === 'getResultats') {
                     $tab0['date'] = $row[1];
                     $tab0['userId'] = $row[2];
                     $tab0['couleur'] = $row[3];
-                    $tab0['rcouleur'] = !!$row[4];
+                    $tab0['rcouleur'] = $row[4];
                     $tab0['forme'] = $row[5];
-                    $tab0['rforme'] = !!$row[6];
+                    $tab0['rforme'] = $row[6];
                     $tab0['nombre'] = $row[7];
-                    $tab0['rnombre'] = !!$row[8];
+                    $tab0['rnombre'] = $row[8];
                     $tab0['cia'] = $row[9];
                     $tab0['fia'] = $row[10];
                     $tab0['nia'] = $row[11];
@@ -396,7 +448,7 @@ elseif (isset($_POST['action']) && $_POST["action"] === 'exoFaits') {
         $tab = array(
             array("qui" => $_POST["action"],
                 "error" => "0",
-                "msg" => "récup faits (".$stmt->rowCount().") ligne !"),
+                "msg" => "récup faits (" . $stmt->rowCount() . ") ligne !"),
         );
         do {
             $rowset = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -406,11 +458,11 @@ elseif (isset($_POST['action']) && $_POST["action"] === 'exoFaits') {
                     $tab0['id'] = $row['id'];
                     $tab0['date'] = $row['date'];
                     $tab0['couleur'] = $row['couleur'];
-                    $tab0['rcouleur'] = !!$row['rcouleur'];
+                    $tab0['rcouleur'] = $row['rcouleur'];
                     $tab0['forme'] = $row['forme'];
-                    $tab0['rforme'] = !!$row['rforme'];
+                    $tab0['rforme'] = $row['rforme'];
                     $tab0['nombre'] = $row['nombre'];
-                    $tab0['rnombre'] = !!$row['rnombre'];
+                    $tab0['rnombre'] = $row['rnombre']; // !!$row['rnombre']
 
                     $tab[] = $tab0;
                 }

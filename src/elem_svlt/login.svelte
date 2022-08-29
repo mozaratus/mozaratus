@@ -4,8 +4,10 @@
     let leContainer, email, pw, _forgotPw;
 
     function formHandler(event) {
+        dispatch("showAttente", { bool: true });
+
         event.preventDefault();
-        let boss= false;
+        let boss = false;
 
         const _data = "action=login&pw=" + pw.value + "&email=" + email.value;
 
@@ -38,14 +40,15 @@
                     console.log("logué : ", result);
                     dispatch("nomUser", { nom: result[0].nom });
 
-                    if(result[0].id == 18) {
-                        boss= true;
+                    if (result[0].id == 18) {
+                        boss = true;
                     }
 
-
-                    dispatch("goToAccueil", {boss:boss});
+                    dispatch("goToAccueil", { boss: boss });
                     showHide(false);
+                    localStorage.setItem('mail', email.value);
                 }
+                dispatch("showAttente", { bool: false });
             });
         suite();
     }
@@ -62,7 +65,7 @@
                 email: email.value,
             });
         } else {
-            alert("Email Invalide");
+           console.log("Email Invalide");
         }
     }
 
@@ -78,9 +81,11 @@
         // affiche fenêtre avec email pour envoie de lien pour réinitialiser le mot de passe.
         console.log("re-initialiser le mot de passe");
 
+        dispatch("showAttente", { bool: true });
+
         const _data = "action=newPw&email=" + email.value;
 
-        // 
+        //
         // http://tlpt.freelancetoulouse.com/php/getDataFT.php
         //fetch("http://tlpt.freelancetoulouse.com/php/getDataFT.php", {
         fetch("http://tlpt.freelancetoulouse.com/php/getData.php", {
@@ -105,19 +110,23 @@
                     //     todo: "envoie mot de passe",
                     // });
                 } else {
-                    let link= result[0].link;
-                    sendMail(link)
+                    let link = result[0].link;
+                    sendMail(link);
                     // console.log("logué : " + result[0].nom);
                     // dispatch("nomUser", { nom: result[0].nom });
                     // dispatch("goToAccueil", {});
                     // showHide(false);
                 }
+
+                dispatch("showAttente", { bool: false });
             });
     }
 
     // send Mail
     function sendMail(link) {
-        let _data = "action=sendMail&email=" + email.value+"&link="+link;
+        dispatch("showAttente", { bool: true });
+
+        let _data = "action=sendMail&email=" + email.value + "&link=" + link;
         // http://tlpt.freelancetoulouse.com/php/
         fetch("http://tlpt.freelancetoulouse.com/php/sendMail.php", {
             method: "post",
@@ -141,12 +150,13 @@
                     //     todo: "envoie mot de passe",
                     // });
                 } else {
-                                        
                     // console.log("logué : " + result[0].nom);
                     // dispatch("nomUser", { nom: result[0].nom });
                     // dispatch("goToAccueil", {});
                     // showHide(false);
                 }
+
+                dispatch("showAttente", { bool: false });
             });
     }
 </script>
@@ -157,11 +167,11 @@
         <form on:submit|preventDefault={formHandler}>
             <p>
                 <label for="email">Email</label>
-                <input type="email" value="toto@toto.fr" bind:this={email} />
+                <input type="email" value="" bind:this={email} />
             </p>
             <p>
                 <label for="">Mot de passe</label>
-                <input type="password" value="123" bind:this={pw} />
+                <input type="password" value="" bind:this={pw} />
             </p>
             <p>
                 <label for="" />
@@ -189,8 +199,10 @@
         z-index: 10;
     }
     .container .box {
-        margin-top: 30%;
-        margin-left: 20%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         width: 360px;
         padding: 10px;
         border-radius: 4px;

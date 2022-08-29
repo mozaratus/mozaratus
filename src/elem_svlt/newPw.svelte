@@ -6,6 +6,8 @@
     function formHandler(event) {
         event.preventDefault();
 
+        dispatch("showAttente", { bool: true });
+
         const _data = "action=newPw&email=" + email.value;
 
 //        http://localhost/htdocs/2022/telepathons/src/php/getData.php
@@ -21,6 +23,7 @@
             .then((response) => response.json())
             .then((result) => {
                 console.log("Qui : " + result[0].qui + ": (error : "+result[0].error+")");
+                dispatch("showAttente", { bool: false });
                 if (result[0].error == "1") {
 
                     // dispatch("modal", {
@@ -49,7 +52,7 @@
                 email: email.value,
             });
         } else {
-            alert("Email Invalide");
+          console.log("Email Invalide");
         }
     }
 

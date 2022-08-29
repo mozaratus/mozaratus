@@ -7,6 +7,7 @@
     onMount(() => {});
 
     function toBd(color) {
+        dispatch("showAttente", { bool: true });
         const _data = "action=sendColor&color=" + color;
 
         fetch("http://tlpt.freelancetoulouse.com/php/getData.php", {
@@ -21,6 +22,7 @@
                         .then((result) => {
                 console.log("Qui : " + result[0].qui);
                 console.log("Result color : ", result);
+                dispatch("showAttente", { bool: false });
             });
     }
 

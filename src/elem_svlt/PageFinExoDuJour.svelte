@@ -17,7 +17,7 @@
 </script>
 
 <div class="container" bind:this={leContainer}>
-    <h4>Fin des exercies du jour.</h4>
+    <h4>Fin des exercices du jour.</h4>
 </div>
 
 <style>

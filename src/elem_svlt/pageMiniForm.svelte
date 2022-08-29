@@ -12,6 +12,7 @@
 
     function formHandler(event) {
         event.preventDefault();
+        dispatch("showAttente", { bool: true });
 
         const myDate = new Date();
 
@@ -62,6 +63,7 @@
                     //
                     suite();
                 }
+                dispatch("showAttente", { bool: false });
             });
     }
 
@@ -76,8 +78,9 @@
                 leContainer: leContainer,
                 email: email.value,
             });
+            localStorage.setItem('mail', email.value);
         } else {
-            alert("Email Invalide");
+          console.log("Email Invalide");
         }
     }
 

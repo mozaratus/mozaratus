@@ -2,6 +2,8 @@
     import { createEventDispatcher } from "svelte";
     import { onMount } from "svelte";
 
+    import ResultatPrecedent from "./resultatPrecedent.svelte";
+
     let leContainer, _forme, _nombre, _couleur;
 
     let champsExoFaits = {
@@ -16,10 +18,6 @@
 
     const dispatch = createEventDispatcher();
 
-    function suite() {
-        dispatch("suiteExo", { Data: propalData.value });
-    }
-
     export function showHide(bool) {
         if (bool) {
             leContainer.style.display = "block";
@@ -30,21 +28,27 @@
         }
     }
 
-    export function disabledBtn(qui) {
+    export function allumeBtn(qui, couleur) {
+        console.log("allumeBtn", qui, couleur);
+        disabledBtn(qui, couleur);
+    }
+
+    export function disabledBtn(qui, color = "#000") {
+        console.log("disabledBtn", qui, color);
         switch (qui) {
             case "couleur":
                 champsExoFaits.couleur = true;
-                _couleur.style.backgroundColor = "#000";
+                _couleur.style.backgroundColor = color;
                 _couleur.style.cursor = "default";
                 break;
             case "forme":
                 champsExoFaits.forme = true;
-                _forme.style.backgroundColor = "#000";
+                _forme.style.backgroundColor = color;
                 _forme.style.cursor = "default";
                 break;
             case "nombre":
                 champsExoFaits.nombre = true;
-                _nombre.style.backgroundColor = "#000";
+                _nombre.style.backgroundColor = color;
                 _nombre.style.cursor = "default";
                 break;
             default:
@@ -63,9 +67,19 @@
     }
 </script>
 
+<ResultatPrecedent />
+
 <div class="container" bind:this={leContainer}>
-    <p>Gris : A faire | Noire : A vérifier | Vert : OK | Rouge : Erreur</p>
+    <div class="legend">
+        <table>
+            <tr><td class="gris">Gris :</td><td>A faire</td></tr>
+            <tr><td class="noir">Noir :</td><td>A vérifier</td></tr>
+            <tr><td class="vert">Vert :</td><td>OK</td></tr>
+            <tr><td class="rouge">Rouge :</td><td>Erreur</td></tr>
+        </table>
+    </div>
     <br /><br />
+
     <span class="cercle couleur" bind:this={_couleur} on:click={couleur_fx}
         >Couleur</span
     >
@@ -82,22 +96,50 @@
     .container {
         display: none;
         text-align: center;
-        margin-top: 30px;
-        /* position: relative; */
+        /* margin-top: 30px; */
+        position: relative;
         /* background-data: antiquewhite; */
     }
+    .legend {
+        position: absolute;
+        top: 100px;
+        left: 0px;
+    }
+    td{
+        text-align: left;
+    }
+    td.vert, td.rouge, td.noir, td.gris {
+        padding: 5px;
+        text-align: right;
+        color:#fff;
+    }
+    .vert {
+        background-color: #080;
+    }
+
+    .gris {
+        background-color: #999;
+    }
+    .noir {
+        background-color: #000;
+    }
+    .rouge {
+        background-color: #800;
+    }
+
     .cercle {
+        cursor: pointer;
         display: inline-block;
         margin: 50px;
         width: 100px;
         height: 56px;
         background-color: #888;
-        color:white;
+        color: white;
         border-radius: 50%;
         text-align: center;
         padding-top: 39px;
     }
     .cercle:hover {
-        background-color: #8f8;
+        background-color: #555;
     }
 </style>

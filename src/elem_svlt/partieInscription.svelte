@@ -70,10 +70,12 @@
 
     // check result puis route
     function showExo_fx2(page) {
+        dispatch("showAttente", { bool: true });
         cacheTout();
 
         // ? exos faits
         const _data = "action=exoFaits";
+        console.log("exoFaits ?");
 
         fetch("http://tlpt.freelancetoulouse.com/php/getData.php", {
             method: "post",
@@ -85,7 +87,7 @@
         })
             .then((response) => response.json())
             .then((result) => {
-                console.log("Qui : " + result[0].qui + "", result);
+                console.log("::Qui : " + result[0].qui + "\n", result);
 
                 if (result[0].error == "1") {
                     // error
@@ -94,17 +96,46 @@
                     let nbFini = 0;
 
                     if (result[0].error != "2") {
+                        console.log("Choix... : ", result[1]);
+
                         if (result[1].couleur) {
                             nbFini++;
-                            _pageChoixExos.disabledBtn("couleur");
+                            // resultat OK
+                            if (result[1].rcouleur == "1") {
+                                _pageChoixExos.allumeBtn("couleur", "#080");
+                            } else {
+                                // FAUX
+                                if (result[1].rcouleur == "0") {
+                                    _pageChoixExos.allumeBtn("couleur", "#800");
+                                } else {
+                                    // A VERIFIER
+                                    _pageChoixExos.allumeBtn("couleur", "#000");
+                                }
+                            }
                         }
                         if (result[1].forme) {
                             nbFini++;
-                            _pageChoixExos.disabledBtn("forme");
+                            if (result[1].rforme == "1") {
+                                _pageChoixExos.allumeBtn("forme", "#080");
+                            } else {
+                                if (result[1].rforme == "0") {
+                                    _pageChoixExos.allumeBtn("forme", "#800");
+                                } else {
+                                    _pageChoixExos.allumeBtn("forme", "#000");
+                                }
+                            }
                         }
                         if (result[1].nombre) {
                             nbFini++;
-                            _pageChoixExos.disabledBtn("nombre");
+                            if (result[1].rnombre == "1") {
+                                _pageChoixExos.allumeBtn("nombre", "#080");
+                            } else {
+                                if (result[1].rnombre == "0") {
+                                    _pageChoixExos.allumeBtn("nombre", "#800");
+                                } else {
+                                    _pageChoixExos.allumeBtn("nombre", "#000");
+                                }
+                            }
                         }
                     }
 
@@ -137,6 +168,7 @@
                         }
                     }
                 }
+                dispatch("showAttente", { bool: false });
             });
     }
 
@@ -173,11 +205,11 @@
         pageActive = _pageExoBaseNombre;
     }
 
-    function pageExoFin() {
-        _pageExoBaseNombre.showHide(false);
-        //   dispatch("modal", { msg: _msgModal.nombre.msg });
-        dispatch("finInscription", {});
-    }
+    // function pageExoFin() {
+    //     _pageExoBaseNombre.showHide(false);
+    //     //   dispatch("modal", { msg: _msgModal.nombre.msg });
+    //     dispatch("finInscription", {});
+    // }
     function affNomUser(event) {
         // console.log("Nom User : " + event.detail.nom);
         dispatch("affNomUserEvt", { nom: event.detail.nom });
@@ -221,6 +253,10 @@
         }
     }
 
+    export function showHideAttente_fx(event) {
+        dispatch("showAttente", { bool: event.detail.bool });
+    }
+
     function cacheTout() {
         console.log("Cache Tout");
         _pageAccueil.showHide(false);
@@ -238,6 +274,7 @@
     <PageFinExoDuJour bind:this={_pageFinExoDuJour} />
 
     <PageMiniForm
+        on:showAttente={showHideAttente_fx}
         on:suiteMiniForm={beforeExo}
         on:nomUser={affNomUser}
         on:modalEmailUsed={modalMiniForm}
@@ -248,14 +285,11 @@
         bind:this={_pageBeforeExoCouleur}
     />
 
-    <PageChoixExo
-        champsExo={["couleur", "Forme", "Nombre"]}
-        bind:this={_pageChoixExos}
-        on:showExo={showExo_fx}
-    />
+    <PageChoixExo bind:this={_pageChoixExos} on:showExo={showExo_fx} />
 
     <!-- Rouge, Orange, Jaune, Vert, Bleu, Rose, Violet -->
     <PageExoBase
+        on:showAttente={showHideAttente_fx}
         chx={choixDuJour.couleur}
         champs={"couleur"}
         on:suiteExo={pageChoixExo}

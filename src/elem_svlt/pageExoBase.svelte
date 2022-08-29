@@ -17,6 +17,7 @@
     onMount(() => {});
 
     function toBd(data) {
+        dispatch("showAttente", { bool: true });
         const _data =
             "action=sendDataPropal&data=" + data + "&champs=" + champs;
 
@@ -36,6 +37,7 @@
                 } else {
                     console.log("Result data : ", result);
                 }
+                dispatch("showAttente", { bool: false });
             });
     }
 
