@@ -1,0 +1,59 @@
+body {
+    user-select: none;
+}
+
+main {
+    width: 400px;
+    margin: 0 auto;
+}
+
+.msg {
+    font-weight: bold;
+}
+
+.btnUser {
+    margin: 10px;
+    width: 100px;
+    height: 60px;
+    background-color: #ccc;
+    border-radius: 5px;
+    border: 1px solid #000;
+    padding-top: 30px;
+    text-align: center;
+    cursor: pointer;
+}
+
+#canvas {
+    background-color: #ccc;
+    border: 1px solid #000;
+}
+
+.btnUser:hover {
+    background-color: #666;
+    color: #fff;
+}
+
+.rondRef {
+    position: absolute;
+    right: 20px;
+    top: 138px;
+    margin: 10px;
+    width: 100px;
+    height: 100px;
+    background-color: #fff;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+}
+
+.result {
+    position: relative;
+    right: 0%;
+}
+
+.result .voyant {
+    margin: 10px;
+    width: 100px;
+    height: 60px;
+    border: 1px solid #000;
+    background-color: #fff;
+}
