@@ -10,36 +10,84 @@
     <link rel="stylesheet" href="css/css.css" />
 </head>
 
-<body onload="nbPastilles(8);">
-    <!-- start(); -->
+<body onload=" nbPastilles(8); ">
+    <div class="hello" onclick="this.style.display='none'; init_cb();">
+        <span>Click dans la page pour entrer<br> et activer le son.</span>
+    </div>
+    <!-- start();  afficherResultatCamembert();-->
     <main>
-        <h1>Tape en rythme</h1>
-        <div>
-            <input type="number" onchange="nbPastilles(this.value);" value="8" />
+        <h1>Tapez en rythme</h1>
+        <p style="text-align: center;">Appuyez sur <b>la barre d'espace</b> en même temps<br>que le curseur passe sur la
+            pastille de bleue.</p>
+        <div class="ihm">Nb temps :
+            <input type="number" onchange="nbPastilles(this.value);" value="8" size="4" />
             <div id="lesCb"></div>
+            <hr>
+            Rapidité <input type="range" step="10" min="60" max="260" value="120" id="speed_range"
+                onmousedown="rangeSpeed_down();" onmouseup="rangeSpeed_up();"
+                onmousemove="rangeSpeed(this)" /><span></span>
+            <br>
+            <!--  -->
+            <hr>
+            Volume Tchhh <input type="range" step="10" min="0" max="100" value="10" id="vol1_range"
+                onmousedown="rangeVol1_down();" onmouseup="rangeVol1_up();"
+                onmousemove="rangeVol1(this)" /><span></span>
+            <br>
+            <!--  -->
+            Volume Poom <input type="range" step="10" min="0" max="100" value="50" id="vol2_range"
+                onmousedown="rangeVol2_down();" onmouseup="rangeVol2_up();"
+                onmousemove="rangeVol2(this)" /><span></span>
         </div>
-        <canvas id="canvas" width="300" height="300"></canvas>
 
+        <canvas id="canvas" width="320" height="320"></canvas>
 
-        <!-- <input type="button" onclick="start();" value="Start/stop" /> -->
-        <p>Clic sur le bouton au même moment que le fond passe au noir.</p>
-        <div class="btnUser" onmousedown="clickUser();">Bouton</div>
-        <!-- <div class="rondRef animOff"></div> -->
-
+        <table class="legend">
+            <tr>
+                <td class='rose'>Rose : </td>
+                <td>Expert</td>
+                <td rowspan="4">
+                    <div class="voyant"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class='vert'>Vert : </td>
+                <td>Très Bien</td>
+            </tr>
+            <tr>
+                <td class='orange'>Orange : </td>
+                <td>Moyen</td>
+            </tr>
+            <tr>
+                <td class='rouge'>Rouge : </td>
+                <td>Erreur</td>
+            </tr>
+            <tr>
+            </tr>
+        </table>
 
         <div class="result">
-            <div class="msg"></div>
-            <p>Vert : ok, Orange : moyen, Rouge : ko.</p>
-            <div class="voyant"></div>
+            <table>
+                <tr>
+                    <td><canvas id="canvas_camembert" width="200" height="200"></canvas></td>
+                    <td>
+                        <div class="msg"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lesMs" colspan="2"></td>
+                </tr>
+            </table>
         </div>
+        <br><br>
+
     </main>
 
-    <audio preload="auto" id="pocTop">
-        <source src="audio/pocMenu2.mp3" type="audio/mpeg" />
-        <source src="audio/pocMenu2.wav" type="audio/wav" />
+    <audio preload="auto" id="pocTop" autoplay="true">
+        <source src="audio/cc.mp3" type="audio/mpeg" />
+        <source src="audio/cc.wav" type="audio/wav" />
     </audio>
 
-    <audio preload="auto" id="ch">
+    <audio preload="auto" id="ch" autoplay="true">
         <source src="audio/ch.mp3" type="audio/mpeg" />
         <source src="audio/ch.wav" type="audio/wav" />
     </audio>

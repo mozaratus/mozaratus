@@ -1,14 +1,36 @@
 body {
+    background-color:#ccc;
     user-select: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+h1 {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', Verdana, sans-serif;
+    font-variant: small-caps;
+    letter-spacing: 3px;
+    margin: 0;
+}
 main {
     width: 400px;
     margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:center;
 }
+.ihm {
+    margin: 10px;
+    padding: 10px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 3px;
+}
+
+input[type='number']{
+    width: 80px;
+} 
 
 .msg {
     font-weight: bold;
+    display: inline-block;
 }
 
 .btnUser {
@@ -23,11 +45,15 @@ main {
     cursor: pointer;
 }
 
-#canvas {
-    background-color: #ccc;
+#canvas, #canvas_camembert {
+    margin: 10px 0;
+    /* background-color: #fff;
     border: 1px solid #000;
+    box-shadow: 4px 4px 4px 4px rgba(0,0,0,0.5); */
 }
-
+#canvas_camembert {
+    display: none;
+}
 .btnUser:hover {
     background-color: #666;
     color: #fff;
@@ -47,13 +73,62 @@ main {
 
 .result {
     position: relative;
+    display:flex;
+    flex-wrap: wrap;
     right: 0%;
+    /* display: none; */
 }
 
-.result .voyant {
+.voyant {
     margin: 10px;
-    width: 100px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     border: 1px solid #000;
     background-color: #fff;
+}
+
+.lesCb {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.lesCb label {
+    text-align: center;
+}
+.hello {
+    z-index: 10000;
+    position: absolute;
+    top: 0px;left:0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(100,100,100,1);
+    color: #fff;
+    display: flex;
+    justify-content:center;
+    align-items:center;
+}
+.hello span {
+    
+    box-shadow: 2px 2px 3px 3px rgba(0,0,0,0.5);
+    border-radius: 5px;
+    background-color: #fff;
+    color:#000;
+    padding: 10px;
+    text-align: center;
+}
+
+.rose { 
+    color :#F0F;
+} 
+.orange { 
+    color : rgb(212, 138, 0);
+}
+.vert {
+    color :#080;
+}
+.rouge {
+    color : #800;
+}
+.legend tr td[class] {
+    text-align: right;
 }

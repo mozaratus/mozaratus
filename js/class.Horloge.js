@@ -28,17 +28,21 @@ class Horloge {
         this.genereInfos()
     }
 
+    /**
+     * pour mettre en évidence les pastilles indiquant le rythme.
+     */
     genereInfos() {
         for (let i = 0; i < this.nbPastille; i++) {
-            let angle = (2 * Math.PI / this.nbPastille) * i;
+            let angle = ((2 * Math.PI / this.nbPastille) * i) - Math.PI /2;
+
             this.posPastille[i] = {};
             this.posPastille[i].x = Math.cos(angle) * this.rGcercle;
             this.posPastille[i].y = Math.sin(angle) * this.rGcercle;
 
-            this.posPastille[i].xAiguille = Math.cos(angle) * this.rGcercleAiguille;
-            this.posPastille[i].yAiguille = Math.sin(angle) * this.rGcercleAiguille;
+            this.posPastille[i].xAiguille = Math.cos(angle) * (this.rGcercleAiguille-5);
+            this.posPastille[i].yAiguille = Math.sin(angle) * (this.rGcercleAiguille-5);
 
-            this.posPastille[i].color = "#800"; // "hsl(" + (Math.round(360 / this.nbPastille) * i) + ", 80%, 60%)";
+            this.posPastille[i].color = "#07f"; 
         }
     }
 
@@ -60,6 +64,7 @@ class Horloge {
     }
 
     animSuivant() {
+        let d=0;
         this.dessine();
 
         this.traceTraitAiguille();
@@ -70,6 +75,7 @@ class Horloge {
         if (this.cadence.includes(this.numPastilleActive)) {
             //console.log(this.numPastilleActive);
             this.sonExo.play();
+            d = Date.now();
         } else {
             this.sonTic.play();
         }
@@ -78,6 +84,8 @@ class Horloge {
         if (this.numPastilleActive >= this.nbPastille) {
             this.numPastilleActive = 0;
         }
+
+        return d;
     }
 
     /**
@@ -87,7 +95,7 @@ class Horloge {
         this.numPastilleActive = num;
         let pastille = this.posPastille[this.numPastilleActive];
         // this.ctx.strokeStyle = "hsl("+angle+", 60%, 60%)";
-        this.ctx.fillStyle = "#000";
+        this.ctx.fillStyle = "rgba(0,0,0,0.4)";//"#000";
 
         this.ctx.beginPath();
         this.ctx.arc(this.posCentre.x + pastille.x, this.posCentre.y + pastille.y, this.rpastille, 0, 2 * Math.PI);
@@ -99,15 +107,18 @@ class Horloge {
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
         let i = 0;
 
+        // le grand cercle
         this.ctx.beginPath();
         this.ctx.arc(this.posCentre.x, this.posCentre.y, this.rGcercle, 0, 2 * Math.PI);
         this.ctx.stroke();
 
+        // this.ctx.strokeStyle = "#000";
+
         // DESSINE TOUTES LES pastilles
         this.posPastille.forEach(pastille => {
-            
-            if (this.cadence.includes(i)) {
 
+            if (this.cadence.includes(i)) {
+                // pastille de couleur pour la cadence
                 // this.ctx.strokeStyle = pastille.color;
                 this.ctx.fillStyle = pastille.color;
 
@@ -115,6 +126,7 @@ class Horloge {
                 this.ctx.arc(this.posCentre.x + pastille.x, this.posCentre.y + pastille.y, this.rpastille, 0, 2 * Math.PI);
                 // this.ctx.stroke();
                 this.ctx.fill();
+                this.ctx.stroke();
 
             } else {
                 //this.ctx.strokeStyle = pastille.color;
@@ -124,14 +136,15 @@ class Horloge {
                 this.ctx.arc(this.posCentre.x + pastille.x, this.posCentre.y + pastille.y, this.rpastille, 0, 2 * Math.PI);
                 // this.ctx.stroke();
                 this.ctx.fill();
+                this.ctx.stroke();
             }
             //
-            if (!i) {
-                this.ctx.fillStyle = "#000";
-                this.ctx.beginPath();
-                this.ctx.fillText("1", this.posCentre.x + pastille.x - 10, this.posCentre.y + pastille.y + 10);
-                this.ctx.fill();
-            }
+            // if (!i) {
+            this.ctx.fillStyle = "#000";
+            this.ctx.beginPath();
+            this.ctx.fillText((i + 1), this.posCentre.x + pastille.x - 10, this.posCentre.y + pastille.y + 10);
+            this.ctx.fill();
+            // }
             i++;
         });
     }
