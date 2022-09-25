@@ -23,7 +23,6 @@
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
             },
-
             body: _data,
         })
             .then((response) => response.json())

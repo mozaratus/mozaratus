@@ -156,22 +156,22 @@ elseif (isset($_POST['action']) && $_POST["action"] === 'login') {
         fwrite($ff, 'nb Lines : ' . $stmt->rowCount() . "\n");
 
         $tab0 = [];
-        do {
-            $rowset = $stmt->fetchAll(PDO::FETCH_NUM);
-            if ($rowset) {
-                foreach ($rowset as $row) {
+            do {
+                $rowset = $stmt->fetchAll(PDO::FETCH_NUM);
+                if ($rowset) {
+                    foreach ($rowset as $row) {
 
-                    fwrite($ff, "id : " . $row[0] . "\n");
-                    fwrite($ff, "nom : " . $row[1] . "\n");
-                    fwrite($ff, "email : " . $row[2] . "\n");
+                        fwrite($ff, "id : " . $row[0] . "\n");
+                        fwrite($ff, "nom : " . $row[1] . "\n");
+                        fwrite($ff, "email : " . $row[2] . "\n");
 
-                    $tab0['id'] = $row[0];
-                    $tab0['nom'] = $row[1];
-                    $tab0['email'] = $row[2];
-                    $_SESSION['idUser'] = $tab0['id'];
+                        $tab0['id'] = $row[0];
+                        $tab0['nom'] = $row[1];
+                        $tab0['email'] = $row[2];
+                        $_SESSION['idUser'] = $tab0['id'];
+                    }
                 }
-            }
-        } while ($stmt->nextRowset());
+            } while ($stmt->nextRowset());
 
         $tab = array(
             array("qui" => $_POST["action"],

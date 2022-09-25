@@ -1,0 +1,252 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #ddd;
+    font-family: Arial;
+    justify-content: flex-start;
+    font-size: 10px;
+    height: 99%;
+    scroll-behavior: smooth;
+}
+
+#finder {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+p {
+    margin-left: 5px;
+}
+
+h3 {
+    color: #000;
+    font-variant: small-caps;
+    letter-spacing: 2px;
+    font-size: 14px;
+    /* text-align: center; */
+    margin-left: 6px;
+    border-bottom: 1px solid #000;
+}
+
+div.finder {
+    /* min-width: 100px; */
+    margin-left: 1px;
+    /* max-height:calc(100% - 70px); */
+    /* overflow-y:auto;  */
+}
+
+table {
+    border-collapse: collapse;
+    background-color: #fff;
+    border-right-width: 0.5px;
+    font-size: 10px;
+}
+
+table.arbo {
+    border: 0.5px solid #666;
+}
+
+table.arbo tr {
+    border-bottom: 0.5px solid #000;
+}
+
+table.arbo tr.actif {
+    background-color: #00d;
+}
+
+table.arbo tr.actif td+td {
+    color: #fff !important
+}
+
+table.arbo tr.actif a {
+    text-decoration: none;
+    color: #fff;
+    display: inline-block;
+    width: 100%;
+    height: 30px;
+    padding: 5px 0 5px 5px;
+}
+
+table.arbo tr td:last-child,
+table.arbo tr th:last-child,
+table.arbo tr th:nth-child(2) {
+    border-left: 1px solid #aaa;
+}
+
+table.arbo th {
+    text-align: left;
+    color: #777;
+    padding: 2px;
+}
+
+table.arbo td {
+    padding: 2px;
+}
+
+table.arbo td.link {
+    padding: 0px;
+    border-spacing: 0;
+}
+
+table.arbo tr:not(.actif) td a {
+    text-decoration: none;
+    color: #000;
+    background-color: #fff;
+    display: inline-block;
+    width: 100%;
+    height: 30px;
+    padding: 2px;
+}
+
+table.arbo tr:hover td a {
+    color: #800;
+    background-color: #aaa;
+}
+
+table.arbo tr:hover {
+    background-color: #aaa;
+}
+
+.dossier {
+    background-color: #aaa;
+    color: #55f;
+}
+
+.file {
+    background-color: #aaf;
+    text-align: center;
+}
+
+.png,
+.jpg,
+.jpeg {
+    background-color: #aa0;
+}
+
+.txt,
+.css {
+    background-color: #faa;
+}
+
+.php {
+    background-color: #a00;
+}
+
+.html {
+    background-color: #0a0;
+}
+
+.js {
+    background-color: orange;
+}
+
+.ko {
+    color: #800;
+}
+
+.divText {
+    height: 90%;
+    max-height: 640px;
+    min-width: 400px;
+    overflow: auto;
+    padding: 10px;
+    background-color: #fff;
+    border: 0.5px solid #000;
+    box-shadow: inset 2px 2px 5px 1px rgba(0, 0, 0, 0.4);
+}
+
+.divText table td {
+    line-height: 1em;
+}
+
+.numLigne {
+    background-color: #ccc;
+    display: inline-block;
+    min-width: 35px;
+    padding-right: 5px;
+    margin-right: 5px;
+    text-align: right;
+    color: #800;
+}
+
+.import {
+    background-color: rgb(170, 255, 0);
+}
+
+.function {
+    border: 3px solid rgb(170, 0, 255);
+}
+
+.uneVar,
+.uneFx,
+.uneConst,
+.export,
+.import {
+    display: inline-block;
+}
+
+.uneVar,
+.uneConst,
+.uneFx,
+.export,
+.import {
+    margin: 5px;
+    padding: 5px;
+    background-color: #aaa;
+    color: #000;
+}
+
+.uneFx {
+    background-color: #A66;
+}
+
+.uneFx a,
+.uneConst a,
+.uneVar a,
+.import a {
+    text-decoration: none;
+    color: #000;
+}
+
+.uneFx a:hover,
+.uneVar a:hover,
+.import a:hover {
+    color: #fff;
+}
+
+.export,
+.export_code {
+    background-color: orange;
+    color: #000;
+}
+
+.import,
+.import_code {
+    background-color: rgb(170, 255, 0);
+    color: #000;
+}
+
+.function,
+.function_code {
+    border: 3px solid rgb(170, 0, 255);
+}
+
+.svelte {
+    background-color: rgb(179, 0, 255);
+    color: #000;
+}
+
+.detail {
+    font-size: 1.4em;
+    display:flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+}

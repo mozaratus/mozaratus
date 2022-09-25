@@ -80,7 +80,7 @@
 
 <style>
     .container {
-        /* display: none; */
+        display: none;
         /* z-index: 5000; */
     }
 

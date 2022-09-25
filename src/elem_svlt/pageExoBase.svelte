@@ -2,13 +2,11 @@
     import { createEventDispatcher } from "svelte";
     import { onMount } from "svelte";
 
-    let leContainer, propal_div, _actionUser, propalData, leMsgDiv;
-    let timerJour, timerMsg;
-
     export let champs = "";
     export let chx;
 
-    const dureeMessage = 1000;
+    let leContainer, propalData;
+
 
     export function getNom() {
         return champs;
@@ -30,7 +28,7 @@
             body: _data,
         })
             .then((response) => response.json())
-                        .then((result) => {
+            .then((result) => {
                 console.log("Qui : " + result[0].qui);
                 if (result[0].id == 1) {
                     console.error("Result data : ", result);
@@ -39,21 +37,6 @@
                 }
                 dispatch("showAttente", { bool: false });
             });
-    }
-
-    export function cache(d = 0) {
-        // possibilité d'annuler
-        // timerJour = window.setTimeout(() => {
-        //     propal_div.style.opacity = 0;
-        //     //dispatch("nuit", {});
-        // }, d);
-    }
-    export function jour() {
-        window.clearTimeout(timerJour);
-        // _actionUser.style.display = "block";
-        // _actionUser.style.opacity = 1;
-        propalData.focus();
-        showHide(true);
     }
 
     const dispatch = createEventDispatcher();
@@ -79,27 +62,65 @@
             //cache(5000);
         }
     }
+    let __couleurs = [
+        "rouge",
+        "vert",
+        "bleu",
+        "orange",
+        "violet",
+        "jaune",
+        "rose",
+    ];
+    let __formes = [
+        "carré",
+        "cercle",
+        "cube",
+        "boule",
+        "étoile",
+        "triangle",
+        "rectangle",
+    ];
 </script>
 
-<div class="container" bind:this={leContainer} on:mousemove={jour}>
-<span class='totroove chop_{chx}'>{chx}</span>
+<div class="container" bind:this={leContainer}>
+    <span class="totroove chop_{chx}">{chx}</span>
     <!-- Entête -->
-    <div class="propal" bind:this={propal_div} on:mousemove={jour}>
+    <div class="valReference">
+        Au choix :
+        {#if champs == "couleur"}
+            {#each __couleurs as ccc}
+                <span>{ccc} </span>
+            {/each}
+        {/if}
+        {#if champs == "forme"}
+            {#each __formes as ccc}
+                <span>{ccc} </span>
+            {/each}
+        {/if}
+        {#if champs == "nombre"}
+            <span>Nombre compris entre 0 et 100</span>
+        {/if}
+    </div>
+
+    <div class="propal">
         <h4>Exercice <span class="champsTitre">{champs}</span></h4>
         <p class="propal">
             Prenez le temps que vous voulez pour percevoir l'information <br />
-            <span class='totroove chop_{chx}'>{chx}</span><span class="champs">{champs}</span><span class='totroove chop_{chx}'>{chx}</span><br /> que vous envoie cette page.
+            <span class="totroove chop_{chx}">{chx}</span><span class="champs"
+                >{champs}</span
+            ><span class="totroove chop_{chx}">{chx}</span><br /> que vous envoie
+            cette page.
         </p>
     </div>
 
     <!-- <hr /> -->
 
     <!-- Proposition -->
-    <div class="actionUser" bind:this={_actionUser}>
+    <div class="actionUser">
         {#if champs == "nombre"}
-            <input type="number" bind:this={propalData} on:focus={jour} />
+            <input type="number" bind:this={propalData} />
         {:else}
-            <input type="text" bind:this={propalData} on:focus={jour} />
+            <input type="text" bind:this={propalData} />
         {/if}
         <input type="button" value="Proposition de {champs}" on:click={suite} />
     </div>
@@ -129,8 +150,8 @@
         text-align: center;
         position: absolute;
         top: 50%;
-        left:50%;
-        transform: translate(-50%,-50%);
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
     .propal p .champs {
         line-height: 2em;

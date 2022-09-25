@@ -53,9 +53,11 @@ if (isset($_POST['action']) && $_POST["action"] === 'duJourInit') {
                 "msg" => "Infos déjà en base"),
         );
     } else {
+
         $couleurs = ["rouge", "vert", "bleu", "orange", "violet", "jaune", "rose"];
-        $formes = ["carré", "cercle", "cube", "boule", "etoile", "triangle", "rectangle"];
+        $formes = ["carré", "cercle", "cube", "boule", "étoile", "triangle", "rectangle"];
         $nombre = rand(0, 100);
+
         $c = rand(0, 7);
         $f = rand(0, 7);
 
